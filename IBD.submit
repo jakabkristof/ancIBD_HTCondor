@@ -1,0 +1,35 @@
+##IBD.submit
+
+##for d in log output error; do mkdir -p '/home/kjakab/HTCondor/wgiahs_htcondor/'$d; done
+
+universe       = vanilla
+getenv         = True
+
+#log  = /home/kjakab/HTCondor/wgiahs_htcondor/log/cluster_$(Cluster).iid_pair_$(IID_ONE)_$(IID_TWO).log
+output = /home/kjakab/HTCondor/wgiahs_htcondor/output/cluster_$(Cluster).iid_pair_$(IID_ONE)_$(IID_TWO).out
+#error = /home/kjakab/HTCondor/wgiahs_htcondor/error/cluster_$(Cluster).iid_pair_$(IID_ONE)_$(IID_TWO).err
+
+SCRIPT = /home/kjakab/HTCondor/wgiahs_htcondor/work-ibd_wgiahs_pairwise_dag.py
+
+#SCRIPT = /home/kjakab/HTCondor/wgiahs_htcondor/test-ibd_wgiahs_pairwise_dag.py
+
+IN_DIRECTORY = /mnt/18tbb/WGIAHS_AGI_CA_MERGED_HDF5_20250623/CH/ch
+
+OUT_DIRECTORY = /home/kjakab/HTCondor/wgiahs_htcondor/TEST_OUT_DAG/
+
+executable = /usr/bin/python3
+
+IID_ONE = $(JOB)
+
+#arguments = $(SCRIPT) $(Process) $(IID_ONE) $(IID_TWO) $(IN_DIRECTORY) $(OUT_DIRECTORY)
+
+arguments = $(SCRIPT) $(IID_ONE) $(IID_TWO) $(IN_DIRECTORY) $(OUT_DIRECTORY)
+
+queue _job_ IID_TWO _submit_ from /home/kjakab/HTCondor/wgiahs_htcondor/MOT.splice
+
+#
+
+#arguments = $(SCRIPT) $(IID_ONE) $(IID_TWO) $(IN_DIRECTORY) $(OUT_DIRECTORY)
+
+#queue IID_ONE IID_TWO from /home/kjakab/HTCondor/wgiahs_htcondor/MOT_iid_pairs_333.txt
+
