@@ -1,4 +1,4 @@
-##IBD_square.submit
+##IBD_square_nodag.submit
 
 
 universe       = vanilla
@@ -8,21 +8,21 @@ getenv         = True
 #output = /home/kjakab/HTCondor/wgiahs_htcondor/output/cluster_$(Cluster).iid_pair_square_$(IID_ONE)_$(IID_TWO).out
 
 
-SCRIPT = /home/kjakab/HTCondor/wgiahs_htcondor/square/work-ibd_square_wgiahs_pairwise_dag.py
+SCRIPT = /home/kjakab/HTCondor/wgiahs_htcondor/square_nodag/work-ibd_square_wgiahs_pairwise_dag.py
 
 
 IN_DIRECTORY = /mnt/18tbb/WGIAHS_AGI_CA_MERGED_HDF5_20250623/CH/ch
 
-OUT_DIRECTORY = /home/kjakab/HTCondor/wgiahs_htcondor/square/TEST_OUT_DAG_SQUARE/
+OUT_DIRECTORY = /home/kjakab/HTCondor/wgiahs_htcondor/square_nodag/TEST_OUT_DAG_SQUARE/
 
 executable = /usr/bin/python3
 
 IID_ONE = $(JOB)
 
-IID_TWO_FILE = /home/kjakab/HTCondor/wgiahs_htcondor/square/MOT_IID_TWO_LIST.txt
+IID_TWO_FILE = /home/kjakab/HTCondor/wgiahs_htcondor/square_nodag/MOT_IID_TWO_LIST.txt
 
 
-arguments = $(SCRIPT) $(IID_ONE) $(IID_TWO_LIST) $(IN_DIRECTORY) $(OUT_DIRECTORY)
+arguments = $(SCRIPT) $(IID_ONE) $(IID_TWO_FILE) $(IN_DIRECTORY) $(OUT_DIRECTORY)
 
-queue IID_ONE from /home/kjakab/HTCondor/wgiahs_htcondor/square/MOT_IID_ONE_LIST.txt
+queue IID_ONE from /home/kjakab/HTCondor/wgiahs_htcondor/square_nodag/MOT_IID_ONE_LIST.txt
 

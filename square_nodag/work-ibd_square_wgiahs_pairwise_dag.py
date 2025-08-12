@@ -34,7 +34,7 @@ chromosomes = range(1,23)
 for iid_two in iid_two_list:
 
     if(iid_one == iid_two):
-        os._exit(0)
+        continue
 
     iid_pair = [iid_one, iid_two]
 

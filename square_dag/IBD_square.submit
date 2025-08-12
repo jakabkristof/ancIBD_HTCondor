@@ -8,12 +8,12 @@ getenv         = True
 #output = /home/kjakab/HTCondor/wgiahs_htcondor/output/cluster_$(Cluster).iid_pair_square_$(IID_ONE)_$(IID_TWO).out
 
 
-SCRIPT = /home/kjakab/HTCondor/wgiahs_htcondor/square/work-ibd_square_wgiahs_pairwise_dag.py
+SCRIPT = /home/kjakab/HTCondor/wgiahs_htcondor/square_dag/work-ibd_square_wgiahs_pairwise_dag.py
 
 
 IN_DIRECTORY = /mnt/18tbb/WGIAHS_AGI_CA_MERGED_HDF5_20250623/CH/ch
 
-OUT_DIRECTORY = /home/kjakab/HTCondor/wgiahs_htcondor/square/TEST_OUT_DAG_SQUARE/
+OUT_DIRECTORY = /home/kjakab/HTCondor/wgiahs_htcondor/square_dag/TEST_OUT_DAG_SQUARE/
 
 executable = /usr/bin/python3
 
@@ -22,5 +22,5 @@ IID_ONE = $(JOB)
 
 arguments = $(SCRIPT) $(IID_ONE) $(IID_TWO) $(IN_DIRECTORY) $(OUT_DIRECTORY)
 
-queue IID_TWO from /home/kjakab/HTCondor/wgiahs_htcondor/square/MOT_square_iids.txt
+queue IID_TWO from /home/kjakab/HTCondor/wgiahs_htcondor/square_dag/MOT_square_iids.txt
 
