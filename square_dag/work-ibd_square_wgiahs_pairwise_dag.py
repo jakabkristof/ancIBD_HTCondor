@@ -47,11 +47,34 @@ for chr in chromosomes:
                    min_cm=6, cutoff_post=0.99, max_gap=0.0075)
     ibd_segments_df = pd.concat([ibd_segments_df, segments[0]])
 
+#
 
 if(len(ibd_segments_df) > 0):
     ibd_segments_df.iid1 = iid_one
     ibd_segments_df.iid2 = iid_two
     ibd_segments_df.drop("StartBP", axis=1, inplace=True)
     ibd_segments_df.drop("EndBP", axis=1, inplace=True)
-    ibd_segments_df.to_csv(out_folder+"/SEGMENTS_OUT.tsv", mode='a', index=False, header=False, sep='\t')
+
+else:
+    os._exit(0)
+
+#
+
+import sqlite3
+
+sqlite_connection = sqlite3.connect(out_folder+"/SEGMENTS_OUT.sqlite3", timeout=33.3)
+
+cursor = sqlite_connection.cursor()
+
+
+for row in range(len(ibd_segments_df)):
+    data_to_insert = tuple(ibd_segments_df.iloc[row].to_list())
+    data_query = f"INSERT INTO ibd_segment_output VALUES {data_to_insert}"
+    cursor.execute(data_query)
+
+
+sqlite_connection.commit()
+
+cursor.close()
+sqlite_connection.close()
 
