@@ -62,18 +62,18 @@ else:
 
 import sqlite3
 
-sqlite_connection = sqlite3.connect(out_folder+"/SEGMENTS_OUT.sqlite3", timeout=33.3)
+sqlite3.threadsafety = 3
+
+sqlite_connection = sqlite3.connect(out_folder+"/SEGMENTS_OUT.sqlite3", timeout=33.3, cached_statements=0)
 
 cursor = sqlite_connection.cursor()
 
 
 for row in range(len(ibd_segments_df)):
-    data_to_insert = tuple(ibd_segments_df.iloc[row].to_list())
+    data_to_insert = tuple([str(value) for value in ibd_segments_df.iloc[row]])
     data_query = f"INSERT INTO ibd_segment_output VALUES {data_to_insert}"
     cursor.execute(data_query)
-
-
-sqlite_connection.commit()
+    sqlite_connection.commit()
 
 cursor.close()
 sqlite_connection.close()
